@@ -234,7 +234,7 @@ body {
 .ghost-word {
   position: absolute;
   inset-inline: 0;
-  top: 6rem;
+  top: 6.5rem;
   text-align: center;
   font-family: var(--font-display);
   font-weight: 700;
