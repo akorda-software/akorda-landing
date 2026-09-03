@@ -1,15 +1,23 @@
 ---
 interface Props {
   class?: string;
+  tagline?: boolean;
 }
-const { class: className = '' } = Astro.props;
+const { class: className = '', tagline = true } = Astro.props;
 ---
 
-<!-- Lockup clásico: monograma al tamaño de las letras + wordmark completo -->
-<a href="/" class:list={['flex items-center gap-2', className]} aria-label="akorda — inicio">
-  <img src="/logo.png" alt="" aria-hidden="true" width="861" height="713" class="h-6 w-auto dark:hidden" />
-  <img src="/logo-white.png" alt="" aria-hidden="true" width="861" height="713" class="hidden h-6 w-auto dark:block" />
-  <span class="font-display text-xl font-semibold lowercase tracking-tight text-ink">
-    akorda
+<!-- Lockup: monograma + nombre grande con mantra pequeño debajo -->
+<a href="/" class:list={['flex items-center gap-2.5', className]} aria-label="akorda — inicio">
+  <img src="/logo.png" alt="" aria-hidden="true" width="861" height="713" class="h-10 w-auto dark:hidden" />
+  <img src="/logo-white.png" alt="" aria-hidden="true" width="861" height="713" class="hidden h-10 w-auto dark:block" />
+  <span class="flex flex-col justify-center leading-none">
+    <span class="font-display text-xl font-semibold lowercase tracking-tight text-ink">
+      akorda
+    </span>
+    {tagline && (
+      <span class="mt-1 text-[10px] italic leading-none text-ink-faint">
+        Just keep pushing. One more push.
+      </span>
+    )}
   </span>
 </a>
