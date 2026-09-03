@@ -234,7 +234,7 @@ body {
 .ghost-word {
   position: absolute;
   inset-inline: 0;
-  top: 6%;
+  top: 8.6rem;
   text-align: center;
   font-family: var(--font-display);
   font-weight: 700;
@@ -246,6 +246,12 @@ body {
   user-select: none;
   pointer-events: none;
   white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  .ghost-word {
+    top: 10.6rem;
+  }
 }
 
 /* Anillos orbitales del hero */
