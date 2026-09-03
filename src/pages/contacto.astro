@@ -126,7 +126,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         return;
       }
       error?.classList.add('hidden');
-      const subject = encodeURIComponent(`Contacto web Akorda — ${name}`);
+      const subject = encodeURIComponent(`Contacto web akorda — ${name}`);
       const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
       window.location.href = `mailto:hola@akorda.es?subject=${subject}&body=${body}`;
     });
