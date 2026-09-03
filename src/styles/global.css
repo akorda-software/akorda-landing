@@ -248,6 +248,12 @@ body {
   white-space: nowrap;
 }
 
+@media (max-width: 700px) {
+  .ghost-word {
+    top: 20%;
+  }
+}
+
 /* Anillos orbitales del hero */
 .orbit {
   position: absolute;
