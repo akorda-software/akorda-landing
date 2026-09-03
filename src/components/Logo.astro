@@ -5,11 +5,11 @@ interface Props {
 const { class: className = '' } = Astro.props;
 ---
 
-<!-- Logo definitivo: monograma AK (negro en claro, blanco en oscuro) + wordmark -->
-<a href="/" class:list={['flex items-center gap-2.5', className]} aria-label="akorda — inicio">
-  <img src="/logo.png" alt="" aria-hidden="true" width="861" height="713" class="h-8 w-auto dark:hidden" />
-  <img src="/logo-white.png" alt="" aria-hidden="true" width="861" height="713" class="hidden h-8 w-auto dark:block" />
-  <span class="font-display text-xl font-bold lowercase tracking-tight text-ink">
-    akorda
+<!-- Lockup integrado: el monograma aporta la A y la K, el texto solo "orda" -->
+<a href="/" class:list={['flex items-center gap-1.5', className]} aria-label="akorda — inicio">
+  <img src="/logo.png" alt="" aria-hidden="true" width="861" height="713" class="h-9 w-auto dark:hidden" />
+  <img src="/logo-white.png" alt="" aria-hidden="true" width="861" height="713" class="hidden h-9 w-auto dark:block" />
+  <span class="font-display -translate-y-[1px] text-xl font-semibold lowercase tracking-tight text-ink">
+    orda
   </span>
 </a>
