@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTA from '../components/CTA.astro';
+
+const own = [
+  {
+    name: 'Kaselles',
+    tag: 'Producto destacado',
+    desc: 'Generador de horarios para centros educativos de cualquier tipo. De las restricciones del centro a un horario viable, de forma sencilla y con los datos siempre en tu ordenador.',
+    href: 'https://kaselles.com',
+    img: '/images/kaselles-2.png',
+  },
+  {
+    name: 'Kordia',
+    tag: 'SaaS en producción',
+    desc: 'Planifica la capacidad y la carga de trabajo de tu equipo. Reparte las horas entre proyectos y lleva el control sin fricción ni sorpresas.',
+    href: 'https://kordia.es',
+    img: '/images/kordia.png',
+  },
+  {
+    name: 'AudiblePort',
+    tag: 'Aplicación de escritorio',
+    desc: 'Exporta tu biblioteca de Audible a MP3 y M4B, en un único archivo o por capítulos. Todo en local y en privado.',
+    href: 'https://audibleport.com',
+    img: '/images/audibleport.png',
+  },
+  {
+    name: 'TicketSplitter',
+    tag: 'Herramienta web',
+    desc: 'Divide archivos de entradas de varias páginas y obtén cada entrada por separado, rápido y sin complicaciones.',
+    href: 'https://ticketsplitter.kukapu.dev/es/',
+  },
+];
+
+const ongoing = [
+  {
+    name: 'CodiSL',
+    desc: 'Sustitución de varias hojas de cálculo por una aplicación interna que reúne la gestión del negocio en un único lugar.',
+  },
+  {
+    name: 'AquaSalud',
+    desc: 'Reemplazo de una aplicación antigua por un mini-ERP hecho a medida, devolviendo a la empresa el control sobre su herramienta y sus datos.',
+  },
+  {
+    name: 'Control de accesos para eventos',
+    desc: 'Plataforma para gestionar miles de códigos QR desde varios dispositivos, con entradas, salidas y aforo en tiempo real.',
+  },
+];
+---
+
+<BaseLayout
+  title="Proyectos"
+  description="Productos propios de Akorda: Kaselles, Kordia, AudiblePort y TicketSplitter. Además, software a medida en marcha con nuestros primeros clientes."
+>
+  <section class="mx-auto max-w-6xl px-5 pb-16 pt-32 md:px-8 md:pb-24 md:pt-44">
+    <div class="max-w-3xl">
+      <h1 class="hero-enter font-display text-4xl font-semibold tracking-tight text-ink md:text-6xl">
+        Lo que construimos <span class="italic text-accent">habla por nosotros</span>.
+      </h1>
+      <p class="hero-enter mt-6 max-w-xl text-lg leading-relaxed text-ink-soft" style="--enter-delay: 120ms">
+        Todavía no tenemos casos de clientes terminados que enseñar. Lo que sí tenemos son
+        productos propios llevados hasta producción. Eso también dice mucho de cómo trabajamos.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-5 pb-20 md:px-8 md:pb-32">
+    <div class="grid gap-5 md:grid-cols-2">
+      {own.map((p, i) => (
+        <a
+          href={p.href}
+          target="_blank"
+          rel="noopener"
+          data-reveal
+          style={`--reveal-delay: ${(i % 2) * 80}ms`}
+          class="group spot flex flex-col overflow-hidden rounded-2xl border border-line bg-paper transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_48px_-24px_rgba(23,29,26,0.25)]"
+        >
+          {p.img && (
+            <div class="overflow-hidden border-b border-line">
+              <img
+                src={p.img}
+                alt={`Página principal de ${p.name}`}
+                loading="lazy"
+                class="aspect-[16/8] w-full object-cover object-top dark:brightness-90 transition-transform duration-500 group-hover:scale-[1.02]"
+              />
+            </div>
+          )}
+          <div class="flex flex-1 flex-col p-7 md:p-8">
+            <span class="text-xs font-semibold uppercase tracking-wider text-accent">{p.tag}</span>
+            <div class="mt-2 flex items-center justify-between gap-4">
+              <h2 class="font-display text-2xl font-semibold tracking-tight text-ink md:text-3xl">{p.name}</h2>
+              <span aria-hidden="true" class="text-xl text-ink-faint transition-all group-hover:text-accent">↗</span>
+            </div>
+            <p class="mt-3 leading-relaxed text-ink-soft">{p.desc}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="border-y border-line bg-paper-deep">
+    <div class="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-32">
+      <div class="max-w-2xl" data-reveal>
+        <h2 class="font-display text-3xl font-semibold tracking-tight text-ink md:text-4xl">
+          En marcha con clientes.
+        </h2>
+        <p class="mt-5 leading-relaxed text-ink-soft">
+          Nuestros primeros proyectos a medida, actualmente en desarrollo. Cuando terminen,
+          los contaremos aquí con detalle: problema, decisiones y resultado.
+        </p>
+      </div>
+      <div class="mt-10 grid gap-5 md:mt-14 md:grid-cols-3">
+        {ongoing.map((p, i) => (
+          <article
+            data-reveal
+            style={`--reveal-delay: ${i * 80}ms`}
+            class="spot rounded-2xl border border-line bg-paper p-7"
+          >
+            <span class="inline-flex items-center gap-2 rounded-full bg-accent-tint px-3 py-1 text-xs font-semibold text-accent-strong">
+              <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-accent"></span>
+              En desarrollo
+            </span>
+            <h3 class="font-display mt-4 text-xl font-semibold tracking-tight text-ink">{p.name}</h3>
+            <p class="mt-2 text-[15px] leading-relaxed text-ink-soft">{p.desc}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTA
+    title="¿Quieres que te ayudemos con algo?"
+    body="Cuéntanos tu problema, cómo lo haces hoy y qué te gustaría que cambiara. Te diremos con honestidad si podemos ayudar."
+  />
+</BaseLayout>

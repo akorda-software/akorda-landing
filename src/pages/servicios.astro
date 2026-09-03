@@ -1,55 +1,110 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import CTA from '../components/CTA.astro';
+
+const services = [
+  {
+    n: '01',
+    title: 'Mejora cómo trabajas hoy',
+    intro:
+      'Miramos cómo trabajas y quitamos fricción. Menos copiar datos, menos Excel frágil, menos depender de una sola persona.',
+    points: [
+      'Simplificamos tu proceso contigo antes de automatizar nada.',
+      'Quitamos copias manuales y datos repartidos en tres sitios.',
+      'Ordenamos tu información en una herramienta sencilla que cualquiera puede usar.',
+      'Si una herramienta que ya existe te sirve, o lo puedes hacer tú, te lo decimos.',
+      'Empezamos por lo pequeño que más ayuda, delante de quien lo va a usar.',
+    ],
+  },
+  {
+    n: '02',
+    title: 'Crea algo nuevo',
+    intro:
+      'Si tienes una idea, la convertimos en un producto sencillo que la gente entienda y use.',
+    points: [
+      'Recortamos tu idea hasta lo mínimo que aporta valor.',
+      'Diseño claro que no obliga a pensar de más.',
+      'Lanzamiento y mejora a partir del uso real.',
+      'Sencillo al principio, crece solo si funciona.',
+    ],
+  },
+];
+
+const signals = [
+  'Dependes de Excel, correos o WhatsApp para algo importante.',
+  'Hay tareas que te quitan muchas horas cada semana sin aportar valor.',
+  'Solo una persona sabe hacer algo crítico.',
+  'Introduces los mismos datos en varios sitios.',
+  'Tardas tanto en preparar presupuestos que algunos se quedan sin responder.',
+  'Tienes un programa antiguo que te limita más de lo que te ayuda.',
+];
 ---
 
-<BaseLayout title="Servicios" description="Servicios que ofrece Akorda">
-  <section class="section">
-    <div class="container">
-      <h1>Servicios</h1>
-      <div class="grid">
-        <div class="card">
-          <h3>Servicio 1</h3>
-          <p>Descripción detallada del primer servicio que ofrece Akorda.</p>
+<BaseLayout
+  title="Servicios"
+  description="Dos formas de ayudarte: mejorar cómo trabajas hoy y crear algo nuevo. Software sencillo, honesto y sin ataduras."
+>
+  <section class="mx-auto max-w-6xl px-5 pb-16 pt-32 md:px-8 md:pb-24 md:pt-44">
+    <div class="max-w-3xl">
+      <h1 class="hero-enter font-display text-4xl font-semibold tracking-tight text-ink md:text-6xl">
+        Qué hacemos, <span class="italic text-accent">en concreto</span>.
+      </h1>
+      <p class="hero-enter mt-6 max-w-xl text-lg leading-relaxed text-ink-soft" style="--enter-delay: 120ms">
+        Dos formas de ayudarte, explicadas por resultados y no por tecnologías.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-5 pb-20 md:px-8 md:pb-32">
+    <div class="grid gap-5 lg:grid-cols-2">
+      {services.map((s, i) => (
+        <article
+          data-reveal
+          style={`--reveal-delay: ${i * 80}ms`}
+          class="spot flex flex-col rounded-2xl border border-line bg-paper p-7 md:p-8"
+        >
+          <span class="font-display text-sm font-semibold tracking-widest text-accent">{s.n}</span>
+          <h2 class="font-display mt-3 text-2xl font-semibold tracking-tight text-ink">{s.title}</h2>
+          <p class="mt-3 leading-relaxed text-ink-soft">{s.intro}</p>
+          <ul class="mt-6 space-y-3 border-t border-line pt-6">
+            {s.points.map((p) => (
+              <li class="flex gap-3 text-[15px] leading-relaxed text-ink-soft">
+                <span aria-hidden="true" class="mt-0.5 shrink-0 font-bold text-accent">✓</span>
+                {p}
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="border-y border-line bg-paper-deep">
+    <div class="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-32">
+      <div class="grid gap-12 lg:grid-cols-[1fr_1.4fr] lg:gap-20">
+        <div data-reveal>
+          <h2 class="font-display text-3xl font-semibold tracking-tight text-ink md:text-4xl">
+            ¿Cuándo tiene sentido hablar con nosotros?
+          </h2>
+          <p class="mt-5 leading-relaxed text-ink-soft">
+            No hace falta saber qué software necesitas. La conversación puede empezar simplemente con:
+            «tenemos este problema y creemos que debería existir una forma mejor de hacerlo».
+          </p>
         </div>
-        <div class="card">
-          <h3>Servicio 2</h3>
-          <p>Descripción detallada del segundo servicio que ofrece Akorda.</p>
-        </div>
-        <div class="card">
-          <h3>Servicio 3</h3>
-          <p>Descripción detallada del tercer servicio que ofrece Akorda.</p>
-        </div>
+        <ul class="divide-y divide-line border-y border-line">
+          {signals.map((s) => (
+            <li class="flex gap-4 py-4 text-[17px] leading-relaxed text-ink" data-reveal>
+              <span aria-hidden="true" class="font-bold text-accent">·</span>
+              {s}
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   </section>
+
+  <CTA
+    title="¿Te suena algo de lo anterior?"
+    body="Cuéntanos el problema, cómo lo resuelves hoy y qué te gustaría que cambiara. Te diremos con honestidad si podemos ayudar y cómo."
+  />
 </BaseLayout>
-
-<style>
-  .section {
-    padding: 4rem 0;
-  }
-
-  h1 {
-    margin-bottom: 2.5rem;
-  }
-
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-  }
-
-  .card {
-    padding: 2rem;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius);
-  }
-
-  .card h3 {
-    margin-bottom: 0.75rem;
-  }
-
-  .card p {
-    color: var(--color-text-muted);
-  }
-</style>

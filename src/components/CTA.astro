@@ -1,0 +1,40 @@
+---
+interface Props {
+  title?: string;
+  body?: string;
+}
+const {
+  title = 'Cuéntanos qué te está haciendo perder tiempo.',
+  body = 'No necesitas saber qué software necesitas. Explícanos el problema, cómo lo haces hoy y qué te gustaría que cambiara. Te diremos con honestidad si podemos ayudar.',
+} = Astro.props;
+---
+
+<section class="relative overflow-hidden border-t border-line bg-band">
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0">
+    <span class="orb left-[4%] top-[-200px] h-[420px] w-[620px]" style="background: radial-gradient(closest-side, rgb(111 157 255 / 0.3), transparent 70%);"></span>
+    <span class="orb bottom-[-220px] right-[2%] h-[400px] w-[560px]" style="background: radial-gradient(closest-side, rgb(124 58 237 / 0.28), transparent 70%);"></span>
+    <span class="orb bottom-[-260px] left-[30%] h-[320px] w-[480px]" style="background: radial-gradient(closest-side, rgb(14 165 233 / 0.16), transparent 70%);"></span>
+  </div>
+  <div class="relative mx-auto max-w-6xl px-5 py-24 md:px-8 md:py-36">
+    <div class="max-w-3xl" data-reveal>
+      <h2 class="font-display text-3xl font-semibold leading-tight tracking-tight text-band-fg md:text-5xl">
+        {title}
+      </h2>
+      <p class="mt-6 max-w-xl text-lg leading-relaxed text-band-fg/70">{body}</p>
+      <div class="mt-10 flex flex-wrap items-center gap-4">
+        <a
+          href="/contacto"
+          class="rounded-full bg-band-fg px-6 py-3 font-medium text-band transition-all hover:brightness-110 active:scale-[0.98]"
+        >
+          Cuéntanos tu problema
+        </a>
+        <a
+          href="mailto:hola@akorda.es"
+          class="rounded-full border border-band-fg/30 px-6 py-3 font-medium text-band-fg transition-colors hover:border-band-fg/60"
+        >
+          hola@akorda.es
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

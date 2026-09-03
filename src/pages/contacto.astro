@@ -2,98 +2,133 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Contacto" description="Contacta con Akorda">
-  <section class="section">
-    <div class="container">
-      <h1>Contacto</h1>
-      <div class="content">
-        <p>
-          ¿Quieres saber más sobre lo que podemos hacer por ti?
-          Rellena el formulario y nos pondremos en contacto contigo.
+<BaseLayout
+  title="Contacto"
+  description="Cuéntanos tu proyecto: qué problema tienes, cómo lo resuelves hoy y qué te gustaría que cambiara. Respondemos nosotros mismos, sin intermediarios."
+>
+  <section class="mx-auto max-w-6xl px-5 pb-16 pt-32 md:px-8 md:pb-24 md:pt-44">
+    <div class="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
+      <div>
+        <h1 class="hero-enter font-display text-4xl font-semibold tracking-tight text-ink md:text-6xl">
+          Cuéntanos tu <span class="italic text-accent">problema</span>.
+        </h1>
+        <p class="hero-enter mt-6 max-w-md text-lg leading-relaxed text-ink-soft" style="--enter-delay: 120ms">
+          No necesitas llegar con una solución definida. Explícanos el problema y hablamos
+          de si la tecnología puede ayudar.
         </p>
-        <form class="form" action="#" method="POST">
-          <label>
-            Nombre
-            <input type="text" name="name" required />
-          </label>
-          <label>
-            Email
-            <input type="email" name="email" required />
-          </label>
-          <label>
-            Mensaje
-            <textarea name="message" rows="5" required></textarea>
-          </label>
-          <button type="submit" class="btn">Enviar</button>
-        </form>
+        <div class="hero-enter mt-8 space-y-4" style="--enter-delay: 200ms">
+          <a href="mailto:hola@akorda.es" class="block font-medium text-accent underline-offset-4 hover:underline">
+            hola@akorda.es
+          </a>
+          <a href="tel:+34624724746" class="block font-medium text-accent underline-offset-4 hover:underline">
+            624 724 746
+          </a>
+          <p class="text-sm text-ink-faint">Valencia, España · Respondemos nosotros mismos</p>
+        </div>
       </div>
+
+      <form
+        id="contact-form"
+        data-reveal
+        class="h-fit rounded-2xl border border-line bg-paper p-7 md:p-9"
+        novalidate
+      >
+        <div class="space-y-5">
+          <div>
+            <label for="f-name" class="mb-2 block text-sm font-semibold text-ink">Tu nombre</label>
+            <input
+              id="f-name"
+              name="name"
+              type="text"
+              required
+              autocomplete="name"
+              placeholder="Cómo te llamas"
+              class="w-full rounded-xl border border-line bg-paper px-4 py-3 text-ink placeholder:text-ink-faint focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+            />
+          </div>
+          <div>
+            <label for="f-email" class="mb-2 block text-sm font-semibold text-ink">Tu correo</label>
+            <input
+              id="f-email"
+              name="email"
+              type="email"
+              required
+              autocomplete="email"
+              placeholder="tu@empresa.com"
+              class="w-full rounded-xl border border-line bg-paper px-4 py-3 text-ink placeholder:text-ink-faint focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+            />
+          </div>
+          <div>
+            <label for="f-msg" class="mb-2 block text-sm font-semibold text-ink">Qué te gustaría cambiar</label>
+            <textarea
+              id="f-msg"
+              name="message"
+              required
+              rows="5"
+              placeholder="Cuéntanos el problema, cómo lo haces hoy y qué te gustaría que cambiara."
+              class="w-full resize-y rounded-xl border border-line bg-paper px-4 py-3 text-ink placeholder:text-ink-faint focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+            ></textarea>
+          </div>
+          <p id="form-error" class="hidden text-sm font-medium text-[#a33327]" role="alert">
+            Revisa los campos: necesitamos tu nombre, un correo válido y unas líneas sobre tu proyecto.
+          </p>
+          <button
+            type="submit"
+            class="w-full rounded-full bg-ink px-6 py-3.5 font-medium text-paper transition-all hover:bg-accent active:scale-[0.99]"
+          >
+            Enviar mensaje
+          </button>
+          <p class="text-center text-sm text-ink-faint">
+            Al enviar aceptas nuestra <a href="/privacidad" class="underline underline-offset-2 hover:text-accent">política de privacidad</a>.
+          </p>
+        </div>
+      </form>
     </div>
   </section>
+
+  <section class="border-t border-line bg-paper-deep">
+    <div class="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-24">
+      <h2 class="font-display text-2xl font-semibold tracking-tight text-ink md:text-3xl" data-reveal>
+        Qué pasa después.
+      </h2>
+      <ol class="mt-8 grid gap-8 md:grid-cols-3 md:gap-6">
+        {[
+          ['1', 'Te leemos de verdad', 'Nada de respuestas automáticas. Alguien del equipo lee tu mensaje y te responde.'],
+          ['2', 'Hablamos del problema', 'Una conversación para entender qué quieres conseguir y si tiene sentido seguir.'],
+          ['3', 'Te decimos lo que pensamos de verdad', 'Si podemos ayudar, te proponemos cómo. Si no, te lo decimos y te orientamos.'],
+        ].map(([n, t, b], i) => (
+          <li data-reveal style={`--reveal-delay: ${i * 80}ms`}>
+            <span class="font-display text-sm font-semibold tracking-widest text-accent">{n} / 3</span>
+            <h3 class="font-display mt-2 text-xl font-semibold tracking-tight text-ink">{t}</h3>
+            <p class="mt-2 text-[15px] leading-relaxed text-ink-soft">{b}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <script>
+    // Sin backend todavía: compone un correo con los datos del formulario.
+    // TODO: sustituir por POST a /api/contacto cuando exista el backend.
+    const form = document.getElementById('contact-form') as HTMLFormElement | null;
+    const error = document.getElementById('form-error');
+
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const name = String(data.get('name') ?? '').trim();
+      const email = String(data.get('email') ?? '').trim();
+      const message = String(data.get('message') ?? '').trim();
+      const valid = name.length > 1 && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) && message.length > 10;
+
+      if (!valid) {
+        error?.classList.remove('hidden');
+        return;
+      }
+      error?.classList.add('hidden');
+      const subject = encodeURIComponent(`Contacto web Akorda — ${name}`);
+      const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
+      window.location.href = `mailto:hola@akorda.es?subject=${subject}&body=${body}`;
+    });
+  </script>
 </BaseLayout>
-
-<style>
-  .section {
-    padding: 4rem 0;
-  }
-
-  h1 {
-    margin-bottom: 1rem;
-  }
-
-  .content {
-    max-width: 600px;
-  }
-
-  .content > p {
-    color: var(--color-text-muted);
-    margin-bottom: 2rem;
-  }
-
-  .form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-
-  label {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-    font-weight: 500;
-    font-size: 0.9rem;
-  }
-
-  input,
-  textarea {
-    padding: 0.65rem 0.85rem;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius);
-    font-family: var(--font-sans);
-    font-size: 1rem;
-    color: var(--color-text);
-    background: var(--color-bg);
-  }
-
-  input:focus,
-  textarea:focus {
-    outline: 2px solid var(--color-primary);
-    outline-offset: -1px;
-  }
-
-  .btn {
-    align-self: flex-start;
-    padding: 0.75rem 2rem;
-    background: var(--color-primary);
-    color: #fff;
-    border: none;
-    border-radius: var(--radius);
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.15s;
-  }
-
-  .btn:hover {
-    background: var(--color-primary-dark);
-  }
-</style>

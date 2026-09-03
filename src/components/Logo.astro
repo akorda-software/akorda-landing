@@ -1,0 +1,14 @@
+---
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+
+<!-- TODO: cuando llegue el logo definitivo, sustituir public/logo.svg (y quitar el wordmark si el logo ya lo incluye) -->
+<a href="/" class:list={['flex items-center gap-2.5', className]} aria-label="akorda — inicio">
+  <img src="/logo.svg" alt="" aria-hidden="true" class="h-8 w-8" width="36" height="36" />
+  <span class="font-display text-xl font-bold lowercase tracking-tight text-ink">
+    akorda
+  </span>
+</a>

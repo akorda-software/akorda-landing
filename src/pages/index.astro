@@ -1,40 +1,500 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import CTA from '../components/CTA.astro';
+
+const pains = [
+  '«Lo llevamos todo con un Excel»',
+  '«Siempre lo hace la misma persona»',
+  '«Copiamos datos de un programa a otro»',
+  '«Tardamos tanto en presupuestar que perdemos encargos»',
+  '«El programa que usamos no permite hacer esto»',
+  '«Esto debería hacerse con un botón»',
+];
+
+const manifesto: { t: string; hl?: boolean }[] = [
+  { t: 'Creemos' },
+  { t: 'que' },
+  { t: 'el' },
+  { t: 'software', hl: true },
+  { t: 'debería' },
+  { t: 'quitar', hl: true },
+  { t: 'trabajo,', hl: true },
+  { t: 'no' },
+  { t: 'darlo.' },
+  { t: 'Que' },
+  { t: 'la' },
+  { t: 'mejor', hl: true },
+  { t: 'solución', hl: true },
+  { t: 'a' },
+  { t: 'veces' },
+  { t: 'no', hl: true },
+  { t: 'necesita', hl: true },
+  { t: 'código.', hl: true },
+  { t: 'Que' },
+  { t: 'empezar', hl: true },
+  { t: 'pequeño,', hl: true },
+  { t: 'enseñar' },
+  { t: 'progreso', hl: true },
+  { t: 'real', hl: true },
+  { t: 'y' },
+  { t: 'escuchar' },
+  { t: 'vale' },
+  { t: 'más' },
+  { t: 'que' },
+  { t: 'prometer' },
+  { t: 'en' },
+  { t: 'grande.' },
+  { t: 'Que' },
+  { t: 'el' },
+  { t: 'código', hl: true },
+  { t: 'y' },
+  { t: 'los' },
+  { t: 'datos', hl: true },
+  { t: 'son' },
+  { t: 'de', hl: true },
+  { t: 'quien', hl: true },
+  { t: 'los', hl: true },
+  { t: 'paga.', hl: true },
+  { t: 'Y' },
+  { t: 'que' },
+  { t: 'se' },
+  { t: 'puede' },
+  { t: 'trabajar' },
+  { t: 'con', hl: true },
+  { t: 'honestidad,', hl: true },
+  { t: 'sin', hl: true },
+  { t: 'trampas', hl: true },
+  { t: 'y' },
+  { t: 'sin', hl: true },
+  { t: 'jerga.', hl: true },
+];
+
+const principles = [
+  {
+    n: '01',
+    title: 'Honestidad',
+    body: 'Venimos a hacerlo bien y a ayudarte de verdad, aunque lo que tengamos que decirte no sea lo más cómodo.',
+  },
+  {
+    n: '02',
+    title: 'Utilidad',
+    body: 'Solo construimos lo que aporta un cambio real. A veces la mejor ayuda es decirte que no necesitas software.',
+  },
+  {
+    n: '03',
+    title: 'Simplicidad',
+    body: 'La solución más sencilla que funcione. Menos pantallas, menos pasos, menos coste de mantener.',
+  },
+  {
+    n: '04',
+    title: 'Responsabilidad',
+    body: 'Si nos equivocamos, lo reconocemos y lo corregimos. Sin escondernos en tecnicismos.',
+  },
+  {
+    n: '05',
+    title: 'Cooperación',
+    body: 'Remamos contigo como asociados, no como un proveedor externo. Decidimos juntos mientras aporte valor a los dos.',
+  },
+];
+
+const services = [
+  {
+    n: '01',
+    title: 'Mejora cómo trabajas hoy',
+    body: 'Miramos cómo trabajas y quitamos fricción: menos copiar datos, menos Excel frágil, menos depender de una sola persona. Con automatizaciones o una herramienta sencilla a tu medida. Empezamos por lo pequeño que más ayuda.',
+    href: '/servicios',
+  },
+  {
+    n: '02',
+    title: 'Crea algo nuevo',
+    body: 'Si tienes una idea, la convertimos en un producto sencillo que la gente entienda y use. Sin complejidad para una escala que aún no existe. Empieza pequeño y crece solo si funciona.',
+    href: '/servicios',
+  },
+];
+
+const steps = [
+  {
+    n: '1',
+    title: 'Entendemos el problema',
+    body: 'Hablamos con quien hace el trabajo, miramos el proceso actual y definimos qué cambio merecería la pena.',
+  },
+  {
+    n: '2',
+    title: 'Construimos lo mínimo útil',
+    body: 'La versión más sencilla que ya ayuda y nos enseña qué ajustar.',
+  },
+  {
+    n: '3',
+    title: 'Te enseñamos progreso real',
+    body: 'Pruebas versiones funcionando cada poco tiempo y cambias prioridades antes de que equivocarse salga caro.',
+  },
+  {
+    n: '4',
+    title: 'Tú decides',
+    body: 'El código y los datos son tuyos. Sigue con nosotros, llévalo dentro o cambia de proveedor.',
+  },
+];
+
+const why = [
+  {
+    title: 'No somos una fábrica de código',
+    body: 'No ejecutamos una lista sin pensar. Te cuestionamos cuando vemos una opción mejor y te explicamos por qué.',
+  },
+  {
+    title: 'No desaparecemos hasta la entrega',
+    body: 'Ves el producto mientras se construye. Lo pruebas, opinas y cambias prioridades antes de que un error cueste meses.',
+  },
+  {
+    title: 'No te atamos a nosotros',
+    body: 'Tendrás acceso al código, a tus datos y a la infraestructura. Te quedas porque te aporta, no porque irte sea imposible.',
+  },
+  {
+    title: 'Cobramos lo justo',
+    body: 'Te damos una estimación honesta y te avisamos si cambia. Si cuesta menos, pagas menos. Si cuesta más, lo hablamos antes. Sin sorpresas al final.',
+  },
+];
 ---
 
-<BaseLayout title="Inicio" description="Akorda — Página en construcción">
-  <section class="hero">
-    <div class="container">
-      <h1>Akorda</h1>
-      <p class="hero-sub">Página en construcción.</p>
-      <p class="hero-note">Oscar y Albert vamos a intentar hacer cosas muuuuy guaaapas!</p>
+<BaseLayout
+  title="Software útil, sin trampas"
+  description="Akorda es un pequeño estudio de software en Valencia. Creemos que la tecnología debería simplificar el trabajo: software a medida, automatización y productos digitales construidos con honestidad."
+>
+  <!-- ============ HERO ============ -->
+  <section id="hero" class="relative overflow-hidden pt-16 md:pt-[72px]">
+    <!-- Fondo lejano: aurora -->
+    <div aria-hidden="true" class="absolute inset-0" data-parallax="0.06">
+      <div class="aurora">
+        <div class="blob blob-a" data-depth-wrap><div data-depth="10"><i></i></div></div>
+        <div class="blob blob-b"><div data-depth="22"><i></i></div></div>
+        <div class="blob blob-c"><div data-depth="14"><i></i></div></div>
+        <div class="blob blob-d"><div data-depth="26"><i></i></div></div>
+      </div>
+    </div>
+    <!-- Fondo medio: retícula + puntos + palabra fantasma -->
+    <div aria-hidden="true" class="absolute inset-0" data-parallax="0.12">
+      <div class="hero-grid absolute inset-0"></div>
+      <div class="dot-grid absolute inset-0"></div>
+      <div class="ghost-word">akorda</div>
+    </div>
+    <!-- Anillos orbitales -->
+    <div aria-hidden="true" class="absolute left-1/2 top-[42%] hidden -translate-x-1/2 -translate-y-1/2 lg:block">
+      <div data-depth="18">
+        <div class="orbit orbit-spin h-[620px] w-[620px]"></div>
+      </div>
+    </div>
+    <div aria-hidden="true" class="absolute left-1/2 top-[42%] hidden -translate-x-1/2 -translate-y-1/2 lg:block">
+      <div data-depth="30">
+        <div class="orbit h-[920px] w-[920px] opacity-60"></div>
+      </div>
+    </div>
+
+    <div class="relative mx-auto max-w-6xl px-5 pb-14 pt-14 md:px-8 md:pb-20 md:pt-20">
+      <div data-hero-fade>
+        <div class="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
+          <div>
+            <p
+              class="hero-enter inline-flex items-center gap-2 rounded-full border border-line bg-paper/80 px-4 py-1.5 text-sm font-medium text-ink-soft backdrop-blur"
+              style="--enter-delay: 0ms"
+            >
+              <span class="h-2 w-2 rounded-full bg-accent"></span>
+              Estudio de software · Valencia
+            </p>
+            <h1
+              class="hero-enter font-display mt-6 text-5xl font-semibold leading-[1.02] tracking-tight text-ink md:text-7xl"
+              style="--enter-delay: 90ms"
+            >
+              El software debería <span class="italic text-accent">quitarte trabajo</span>, no dártelo.
+            </h1>
+            <p
+              class="hero-enter mt-6 max-w-xl text-lg leading-relaxed text-ink-soft md:text-xl"
+              style="--enter-delay: 180ms"
+            >
+              Somos Akorda. Construimos software a medida y automatizaciones para
+              resolver problemas reales de tu empresa. Trabajamos a tu lado, te
+              enseñamos avances desde el principio y nunca te venderemos más de lo que necesitas.
+            </p>
+            <div class="hero-enter mt-9 flex flex-wrap items-center gap-3" style="--enter-delay: 270ms">
+              <a
+                href="/contacto"
+                data-magnetic
+                class="rounded-full bg-ink px-6 py-3 font-medium text-paper transition-all hover:bg-accent active:scale-[0.98]"
+              >
+                Cuéntanos tu problema
+              </a>
+              <a
+                href="#proceso"
+                data-magnetic
+                class="rounded-full border border-line bg-paper/80 px-6 py-3 font-medium text-ink backdrop-blur transition-colors hover:border-ink"
+              >
+                Conoce cómo trabajamos
+              </a>
+            </div>
+            <ul
+              class="hero-enter mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-ink-faint"
+              style="--enter-delay: 360ms"
+            >
+              <li class="flex items-center gap-2"><span aria-hidden="true" class="text-accent">✓</span> Hablas con quien construye</li>
+              <li class="flex items-center gap-2"><span aria-hidden="true" class="text-accent">✓</span> Ves progreso desde la primera semana</li>
+              <li class="flex items-center gap-2"><span aria-hidden="true" class="text-accent">✓</span> El código y los datos son tuyos</li>
+            </ul>
+          </div>
+
+          <!-- Viñeta flotante: el antes y el después -->
+          <div class="hero-enter hidden lg:block" style="--enter-delay: 300ms">
+            <div class="float-y glass max-w-sm rounded-2xl p-6" data-depth="34">
+              <p class="text-xs font-semibold uppercase tracking-wider text-ink-faint">Tu proceso, hoy</p>
+              <ul class="mt-3 space-y-2.5 text-[15px] text-ink-soft">
+                <li class="flex gap-2.5"><span aria-hidden="true" class="text-ink-faint">✕</span> Excel + copiar y pegar entre programas</li>
+                <li class="flex gap-2.5"><span aria-hidden="true" class="text-ink-faint">✕</span> Presupuestos que tardan días</li>
+                <li class="flex gap-2.5"><span aria-hidden="true" class="text-ink-faint">✕</span> Solo una persona sabe cómo se hace</li>
+              </ul>
+              <div class="my-5 flex items-center gap-3 text-xs font-semibold uppercase tracking-wider text-accent">
+                <span class="h-px flex-1 bg-line"></span>
+                lo convertimos en
+                <span class="h-px flex-1 bg-line"></span>
+              </div>
+              <p class="text-xs font-semibold uppercase tracking-wider text-ink-faint">Con Akorda</p>
+              <p class="font-display mt-2 text-2xl font-semibold tracking-tight text-ink">
+                Entendemos tu problema <span class="italic text-accent">y lo simplificamos.</span>
+              </p>
+              <div class="mt-4 rounded-xl border border-line bg-paper-deep p-4 text-sm leading-relaxed text-ink-soft">
+                Empiezas con algo pequeño y útil. Mejora con tu uso, sin ataduras.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-14 flex flex-col items-center gap-3 md:mt-20" aria-hidden="true">
+        <span class="text-xs font-medium uppercase tracking-[0.2em] text-ink-faint">Desliza</span>
+        <span class="scroll-hint"></span>
+      </div>
     </div>
   </section>
+
+  <!-- ============ MARQUEE DE DOLORES ============ -->
+  <div class="marquee overflow-hidden border-y border-line bg-paper-deep py-4" aria-label="Frases que escuchamos a menudo">
+    <div class="marquee-track flex w-max items-center gap-10 pr-10" style="--marquee-duration: 45s">
+      {[...pains, ...pains].map((pain) => (
+        <span class="flex items-center gap-10 whitespace-nowrap text-[15px] font-medium text-ink-soft">
+          {pain}
+          <span aria-hidden="true" class="text-accent">·</span>
+        </span>
+      ))}
+    </div>
+  </div>
+
+  <!-- ============ MANIFIESTO ============ -->
+  <section id="manifiesto" class="relative scroll-mt-24 overflow-hidden border-b border-line bg-paper-deep">
+    <div aria-hidden="true" class="absolute inset-0" data-parallax="0.08">
+      <span class="orb left-[-140px] top-[8%] h-[380px] w-[380px]" style="background: radial-gradient(closest-side, var(--aur-1), transparent 70%);"></span>
+      <span class="orb bottom-[-160px] right-[-120px] h-[440px] w-[440px]" style="background: radial-gradient(closest-side, var(--aur-3), transparent 70%);"></span>
+    </div>
+    <div class="relative mx-auto max-w-4xl px-5 py-20 md:px-8 md:py-32">
+      <p class="eyebrow" data-reveal>Cómo vemos el software</p>
+      <p class="manifesto font-display mt-8 text-3xl font-medium leading-[1.25] tracking-tight text-ink md:text-[2.9rem] md:leading-[1.22]" data-manifesto>
+        {manifesto.map((w, i) => (
+          <>{i > 0 && ' '}<span class:list={['w', w.hl && 'hl']}>{w.t}</span></>
+        ))}
+      </p>
+      <div class="mt-10 flex flex-wrap items-center gap-4" data-reveal>
+        <a href="/nosotros" class="font-medium text-accent underline-offset-4 hover:underline">
+          Lee nuestra filosofía completa
+        </a>
+        <span aria-hidden="true" class="text-ink-faint">→</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRINCIPIOS ============ -->
+  <section id="principios" class="relative scroll-mt-24 overflow-hidden">
+    <div aria-hidden="true" class="absolute inset-0" data-parallax="0.05">
+      <div class="dot-grid absolute inset-0 opacity-70"></div>
+    </div>
+    <div class="relative mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-32">
+      <div class="max-w-2xl" data-reveal>
+        <p class="eyebrow">Filosofía</p>
+        <h2 class="font-display mt-5 text-3xl font-semibold tracking-tight text-ink md:text-5xl">
+          Cinco principios que se notan en el resultado.
+        </h2>
+        <p class="mt-5 max-w-xl text-lg leading-relaxed text-ink-soft">
+          No son eslóganes. Son las reglas que aplicamos incluso cuando nos cuesta dinero.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-5 sm:grid-cols-2 md:mt-16 lg:grid-cols-3">
+        {principles.map((p, i) => (
+          <div data-reveal style={`--reveal-delay: ${(i % 3) * 80}ms`}>
+            <article
+              data-tilt
+              class="spot group h-full rounded-2xl border border-line bg-paper p-7"
+            >
+              <div class="flex items-baseline justify-between">
+                <span class="font-display text-sm font-semibold tracking-widest text-accent">{p.n}</span>
+                <span aria-hidden="true" class="h-1.5 w-8 rounded-full bg-line transition-colors duration-300 group-hover:bg-accent"></span>
+              </div>
+              <h3 class="font-display mt-4 text-2xl font-semibold tracking-tight text-ink">{p.title}</h3>
+              <p class="mt-2 leading-relaxed text-ink-soft">{p.body}</p>
+            </article>
+          </div>
+        ))}
+        <div data-reveal style="--reveal-delay: 160ms">
+          <a
+            href="/nosotros"
+            data-tilt
+            class="group flex h-full min-h-[220px] flex-col justify-between rounded-2xl bg-ink p-7 text-paper transition-colors hover:bg-accent"
+          >
+            <p class="font-display text-2xl font-semibold leading-snug tracking-tight">
+              ¿Encajamos con tu forma de ver las cosas?
+            </p>
+            <span class="mt-6 inline-flex items-center gap-2 font-medium">
+              Conoce a Akorda
+              <span aria-hidden="true" class="transition-transform duration-300 group-hover:translate-x-1">→</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICIOS (resumen) ============ -->
+  <section class="hairline-top relative overflow-hidden">
+    <div aria-hidden="true" class="absolute inset-0" data-parallax="0.07">
+      <span class="orb right-[-160px] top-[-120px] h-[420px] w-[420px]" style="background: radial-gradient(closest-side, var(--aur-2), transparent 70%);"></span>
+    </div>
+    <div class="relative mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-32">
+      <div class="flex flex-wrap items-end justify-between gap-6" data-reveal>
+        <div class="max-w-2xl">
+          <p class="eyebrow">Servicios</p>
+          <h2 class="font-display mt-5 text-3xl font-semibold tracking-tight text-ink md:text-5xl">
+            Dos formas de ayudarte.
+          </h2>
+          <p class="mt-5 max-w-xl text-lg leading-relaxed text-ink-soft">
+            Sin tecnologías de moda. Elegimos la herramienta según tu problema, no al revés.
+          </p>
+        </div>
+        <a href="/servicios" class="rounded-full border border-line bg-paper px-5 py-2.5 text-[15px] font-medium text-ink transition-colors hover:border-ink">
+          Ver servicios en detalle
+        </a>
+      </div>
+
+      <div class="mt-12 border-t border-line md:mt-16" data-reveal>
+        {services.map((s) => (
+          <a
+            href={s.href}
+            class="group grid gap-2 border-b border-line py-8 transition-colors hover:bg-paper-deep/60 md:grid-cols-[72px_1fr_1.4fr_40px] md:items-baseline md:gap-6 md:py-10"
+          >
+            <span class="font-display text-sm font-semibold tracking-widest text-accent">{s.n}</span>
+            <h3 class="font-display text-2xl font-semibold tracking-tight text-ink transition-transform duration-300 group-hover:translate-x-1 md:text-3xl">
+              {s.title}
+            </h3>
+            <p class="max-w-xl leading-relaxed text-ink-soft">{s.body}</p>
+            <span aria-hidden="true" class="hidden text-2xl text-accent transition-transform duration-300 group-hover:translate-x-1 md:block">→</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CÓMO TRABAJAMOS ============ -->
+  <section id="proceso" class="relative scroll-mt-24 overflow-hidden border-y border-line bg-paper-deep">
+    <div aria-hidden="true" class="absolute inset-0" data-parallax="0.06">
+      <span class="orb left-[-140px] bottom-[-140px] h-[400px] w-[400px]" style="background: radial-gradient(closest-side, var(--aur-1), transparent 70%);"></span>
+    </div>
+    <div class="relative mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-32">
+      <div class="max-w-2xl" data-reveal>
+        <p class="eyebrow">Cómo trabajamos</p>
+        <h2 class="font-display mt-5 text-3xl font-semibold tracking-tight text-ink md:text-5xl">
+          Verás tu proyecto avanzar desde el principio.
+        </h2>
+        <p class="mt-5 max-w-xl text-lg leading-relaxed text-ink-soft">
+          Sin cajas negras ni meses de silencio. Versiones que puedes probar, no informes de avance.
+        </p>
+      </div>
+
+      <div class="relative mt-12 md:mt-16">
+        <div aria-hidden="true" class="absolute left-0 top-0 hidden h-0.5 w-full bg-line md:block">
+          <div id="proceso-bar" class="h-full w-full origin-left scale-x-0 bg-accent"></div>
+        </div>
+        <ol class="grid gap-10 md:grid-cols-4 md:gap-6 md:pt-8">
+          {steps.map((s, i) => (
+            <li data-reveal style={`--reveal-delay: ${i * 70}ms`}>
+              <span class="font-display text-sm font-semibold tracking-widest text-accent">{s.n} / 4</span>
+              <h3 class="font-display mt-2 text-xl font-semibold tracking-tight text-ink">{s.title}</h3>
+              <p class="mt-2 text-[15px] leading-relaxed text-ink-soft">{s.body}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ POR QUÉ AKORDA ============ -->
+  <section class="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-32">
+    <div class="grid gap-12 lg:grid-cols-[1fr_1.6fr] lg:gap-20">
+      <div data-reveal>
+        <p class="eyebrow">Por qué Akorda</p>
+        <h2 class="font-display mt-5 text-3xl font-semibold tracking-tight text-ink md:text-5xl">
+          Se puede trabajar de otra manera.
+        </h2>
+        <p class="mt-5 leading-relaxed text-ink-soft">
+          Sin negociación defensiva, sin letra pequeña y sin venderte lo que no necesitas.
+        </p>
+        <figure class="mt-8 rounded-2xl bg-band p-7 text-band-fg">
+          <blockquote class="font-display text-xl font-medium italic leading-relaxed">
+            «Esto es lo que estaba buscando. No sabía que se podía trabajar así.»
+          </blockquote>
+          <figcaption class="mt-4 text-sm text-band-fg/60">Así queremos que te sientas después de hablar con nosotros.</figcaption>
+        </figure>
+      </div>
+      <ul class="divide-y divide-line border-y border-line">
+        {why.map((w) => (
+          <li class="py-6 first:pt-0 last:pb-0 md:py-7" data-reveal>
+            <h3 class="font-display text-xl font-semibold tracking-tight text-ink md:text-2xl">{w.title}</h3>
+            <p class="mt-2 max-w-xl leading-relaxed text-ink-soft">{w.body}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ EQUIPO (compacto) ============ -->
+  <section class="mx-auto max-w-6xl px-5 pb-20 md:px-8 md:pb-32">
+    <div
+      data-reveal
+      class="flex flex-col items-start gap-6 rounded-2xl border border-line bg-paper-deep p-7 sm:flex-row sm:items-center md:p-9"
+    >
+      <div class="flex -space-x-3" aria-hidden="true">
+        <span class="font-display flex h-14 w-14 items-center justify-center rounded-full border-2 border-paper-deep bg-accent-tint text-base font-bold text-accent-strong">AA</span>
+        <span class="font-display flex h-14 w-14 items-center justify-center rounded-full border-2 border-paper-deep bg-accent-tint text-base font-bold text-accent-strong">OG</span>
+      </div>
+      <div class="flex-1">
+        <h2 class="font-display text-xl font-semibold tracking-tight text-ink md:text-2xl">
+          Dos personas. Hablas con quien construye.
+        </h2>
+        <p class="mt-1 max-w-xl leading-relaxed text-ink-soft">
+          Somos Albert y Óscar, socios fundadores en Valencia. Ser pequeños es deliberado:
+          sin comerciales ni intermediarios.
+        </p>
+      </div>
+      <a href="/nosotros" class="shrink-0 rounded-full border border-line bg-paper px-5 py-2.5 text-[15px] font-medium text-ink transition-colors hover:border-ink">
+        Conócenos
+      </a>
+    </div>
+  </section>
+
+  <CTA />
+
+  <script>
+    import { scroll, animate } from 'motion';
+
+    const bar = document.getElementById('proceso-bar');
+    const target = document.getElementById('proceso');
+    if (bar && target && window.matchMedia('(min-width: 768px)').matches) {
+      scroll(animate(bar, { scaleX: [0, 1] }), {
+        target,
+        offset: ['start 0.7', 'end 0.6'],
+      });
+    }
+  </script>
 </BaseLayout>
-
-<style>
-  .hero {
-    padding: 6rem 0 4rem;
-    text-align: center;
-    background: var(--color-bg-alt);
-  }
-
-  .hero h1 {
-    font-size: 3.5rem;
-    color: var(--color-primary);
-    margin-bottom: 1rem;
-  }
-
-  .hero-sub {
-    font-size: 1.25rem;
-    color: var(--color-text-muted);
-    margin-bottom: 0.75rem;
-  }
-
-  .hero-note {
-    max-width: 640px;
-    margin: 0 auto;
-    color: var(--color-text-muted);
-    font-size: 1.05rem;
-  }
-</style>

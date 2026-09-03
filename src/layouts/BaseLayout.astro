@@ -8,7 +8,10 @@ interface Props {
   description?: string;
 }
 
-const { title, description = 'Akorda' } = Astro.props;
+const {
+  title,
+  description = 'Akorda — Software a medida, automatización y productos digitales. Un estudio pequeño de Valencia donde hablas directamente con quienes construyen.',
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -17,14 +20,240 @@ const { title, description = 'Akorda' } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_ES" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title} | Akorda</title>
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      try {
+        var saved = localStorage.getItem('akorda-theme');
+        document.documentElement.dataset.theme =
+          saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      } catch (e) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    </script>
   </head>
-  <body>
+  <body class="flex min-h-dvh flex-col">
     <Nav />
-    <main>
+    <main class="flex-1">
       <slot />
     </main>
     <Footer />
+
+    <script>
+      import Lenis from 'lenis';
+      import { inView } from 'motion';
+
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Smooth scroll (muy sutil)
+      if (!reduce) {
+        const lenis = new Lenis({
+          duration: 1.05,
+          easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        });
+        function raf(time: number) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+      }
+
+      const finePointer = window.matchMedia('(pointer: fine)').matches;
+
+      // Spotlight que sigue al puntero dentro de las tarjetas (solo al pasar por encima)
+      if (!reduce && finePointer) {
+        document.addEventListener(
+          'pointermove',
+          (e) => {
+            const t = e.target;
+            if (!(t instanceof HTMLElement)) return;
+            const card = t.closest('.spot');
+            if (!card) return;
+            const r = card.getBoundingClientRect();
+            card.style.setProperty('--mx', `${e.clientX - r.left}px`);
+            card.style.setProperty('--my', `${e.clientY - r.top}px`);
+          },
+          { passive: true },
+        );
+      }
+
+      // Parallax de scroll: [data-parallax="0.12"] desplaza el fondo a otra
+      // velocidad que el contenido. Solo en envoltorios de fondo, nunca en el
+      // mismo nodo que [data-reveal] (el transform entraría en conflicto).
+      const plxEls = Array.from(document.querySelectorAll('[data-parallax]'));
+      if (plxEls.length && !reduce) {
+        let plxQueued = false;
+        const updatePlx = () => {
+          plxQueued = false;
+          const vh = window.innerHeight;
+          for (const el of plxEls) {
+            if (!(el instanceof HTMLElement)) continue;
+            const speed = parseFloat(el.dataset.parallax || '0.1');
+            const r = el.getBoundingClientRect();
+            // Fuera de pantalla: no tocar
+            if (r.bottom < -200 || r.top > vh + 200) continue;
+            const d = (r.top + r.height / 2 - vh / 2) * speed;
+            el.style.transform = `translate3d(0, ${d.toFixed(1)}px, 0)`;
+          }
+        };
+        const queuePlx = () => {
+          if (plxQueued) return;
+          plxQueued = true;
+          requestAnimationFrame(updatePlx);
+        };
+        window.addEventListener('scroll', queuePlx, { passive: true });
+        window.addEventListener('resize', queuePlx);
+        updatePlx();
+      }
+
+      // Profundidad con el ratón en el hero: las capas [data-depth] se
+      // desplazan unos píxeles (parallax, no es ninguna luz). Solo hero.
+      const hero = document.getElementById('hero');
+      if (hero && !reduce && finePointer) {
+        const layers = Array.from(hero.querySelectorAll('[data-depth]'));
+        if (layers.length) {
+          let tx = 0;
+          let ty = 0;
+          let cx = 0;
+          let cy = 0;
+          hero.addEventListener(
+            'pointermove',
+            (e) => {
+              const r = hero.getBoundingClientRect();
+              tx = (e.clientX - r.left) / r.width - 0.5;
+              ty = (e.clientY - r.top) / r.height - 0.5;
+            },
+            { passive: true },
+          );
+          hero.addEventListener('pointerleave', () => {
+            tx = 0;
+            ty = 0;
+          });
+          (function depthLoop() {
+            cx += (tx - cx) * 0.06;
+            cy += (ty - cy) * 0.06;
+            for (const l of layers) {
+              if (!(l instanceof HTMLElement)) continue;
+              const d = parseFloat(l.dataset.depth || '12');
+              // `translate` no pisa `transform`: convive con las animaciones CSS
+              l.style.translate = `${(-cx * d).toFixed(2)}px ${(-cy * d).toFixed(2)}px`;
+            }
+            requestAnimationFrame(depthLoop);
+          })();
+        }
+      }
+
+      // Hero que se hunde al hacer scroll: contenido con fade + blur sutil
+      const heroFade = document.querySelector('[data-hero-fade]');
+      if (hero && heroFade && heroFade instanceof HTMLElement && !reduce) {
+        let heroQueued = false;
+        const updateHero = () => {
+          heroQueued = false;
+          const h = hero.offsetHeight || 1;
+          const p = Math.min(Math.max(window.scrollY / (h * 0.85), 0), 1);
+          heroFade.style.opacity = String(1 - p);
+          heroFade.style.transform = `translate3d(0, ${(p * 90).toFixed(1)}px, 0)`;
+          heroFade.style.filter = p > 0.02 ? `blur(${(p * 5).toFixed(2)}px)` : '';
+        };
+        window.addEventListener(
+          'scroll',
+          () => {
+            if (heroQueued) return;
+            heroQueued = true;
+            requestAnimationFrame(updateHero);
+          },
+          { passive: true },
+        );
+      }
+
+      // Manifiesto: las palabras se iluminan a medida que avanzas con el scroll
+      const manifesto = document.querySelector('[data-manifesto]');
+      if (manifesto) {
+        const words = Array.from(manifesto.querySelectorAll('.w'));
+        if (!reduce && words.length) {
+          let manQueued = false;
+          const updateMan = () => {
+            manQueued = false;
+            const r = manifesto.getBoundingClientRect();
+            const vh = window.innerHeight;
+            const p = Math.min(
+              Math.max((vh * 0.78 - r.top) / (r.height * 0.92), 0),
+              1,
+            );
+            const n = Math.floor(p * (words.length + 4)) - 2;
+            words.forEach((w, i) => w.classList.toggle('lit', i < n));
+          };
+          const queueMan = () => {
+            if (manQueued) return;
+            manQueued = true;
+            requestAnimationFrame(updateMan);
+          };
+          window.addEventListener('scroll', queueMan, { passive: true });
+          window.addEventListener('resize', queueMan);
+          updateMan();
+        } else {
+          words.forEach((w) => w.classList.add('lit'));
+        }
+      }
+
+      // Tilt 3D sutil en [data-tilt] (máx. 5º, vuelve solo al salir)
+      if (!reduce && finePointer) {
+        document.querySelectorAll('[data-tilt]').forEach((el) => {
+          if (!(el instanceof HTMLElement)) return;
+          let frame = 0;
+          el.addEventListener(
+            'pointermove',
+            (e) => {
+              const r = el.getBoundingClientRect();
+              const px = (e.clientX - r.left) / r.width - 0.5;
+              const py = (e.clientY - r.top) / r.height - 0.5;
+              cancelAnimationFrame(frame);
+              frame = requestAnimationFrame(() => {
+                el.style.transform = `perspective(900px) rotateX(${(-py * 5).toFixed(2)}deg) rotateY(${(px * 5).toFixed(2)}deg) translateY(-3px)`;
+              });
+            },
+            { passive: true },
+          );
+          el.addEventListener('pointerleave', () => {
+            cancelAnimationFrame(frame);
+            el.style.transform = '';
+          });
+        });
+
+        // Botones magnéticos: acompañan unos píxeles al cursor
+        document.querySelectorAll('[data-magnetic]').forEach((el) => {
+          if (!(el instanceof HTMLElement)) return;
+          el.addEventListener(
+            'pointermove',
+            (e) => {
+              const r = el.getBoundingClientRect();
+              const dx = e.clientX - (r.left + r.width / 2);
+              const dy = e.clientY - (r.top + r.height / 2);
+              el.style.translate = `${(dx * 0.12).toFixed(1)}px ${(dy * 0.18).toFixed(1)}px`;
+            },
+            { passive: true },
+          );
+          el.addEventListener('pointerleave', () => {
+            el.style.translate = '';
+          });
+        });
+      }
+
+      // Reveal on scroll
+      document.querySelectorAll('[data-reveal]').forEach((el) => {
+        inView(
+          el,
+          () => {
+            el.classList.add('is-visible');
+          },
+          { margin: '0px 0px -12% 0px' },
+        );
+      });
+    </script>
   </body>
 </html>
