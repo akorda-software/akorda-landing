@@ -1,0 +1,50 @@
+# akorda
+
+> Software útil, sin trampas. Estudio pequeño de software en Valencia (España):
+> software a medida y automatizaciones para resolver problemas reales, trabajando
+> como socio tecnológico honesto, sin jerga y sin ataduras.
+
+## Qué hacemos
+
+- **Mejora cómo trabajas hoy**: miramos tu proceso y quitamos fricción (copias
+  manuales, Excels frágiles, datos en tres sitios, depender de una sola persona)
+  con automatizaciones o una herramienta sencilla a medida. Si una herramienta que
+  ya existe te sirve, o lo puedes hacer tú, te lo decimos.
+- **Crea algo nuevo**: convertimos tu idea en un producto sencillo que la gente
+  entienda y use. Empieza pequeño y crece solo si funciona.
+
+## Cómo trabajamos
+
+1. Entendemos el problema con quien hace el trabajo.
+2. Construimos lo mínimo útil que ya ayuda.
+3. Te enseñamos progreso real cada poco tiempo; cambias prioridades antes de que
+   equivocarse salga caro.
+4. El código y los datos son tuyos: sigue con nosotros, llévalo dentro o cambia
+   de proveedor.
+
+## Precio e incertidumbre
+
+Estimación honesta que se revisa cuando cambia la información. Si cuesta menos,
+pagas menos. Si cuesta más, lo hablamos antes. Sin sorpresas al final.
+
+## Principios
+
+Honestidad (hacerlo bien aunque sea incómodo decirlo), utilidad, simplicidad,
+responsabilidad y cooperación (remar como asociados, no como proveedor externo).
+
+## Datos
+
+- Web: https://akorda.es/
+- Email: hola@akorda.es
+- Teléfono: +34 624 724 746
+- Ubicación: Valencia, España
+- Equipo: dos socios fundadores (Albert Álvarez Estellés y Óscar Gómez Balaguer)
+- Idioma: español. Trato de tú, comunicación sencilla.
+
+## Páginas
+
+- [Inicio](https://akorda.es/): filosofía y forma de trabajar.
+- [Servicios](https://akorda.es/servicios/): las dos formas de ayudar, en detalle.
+- [Proyectos](https://akorda.es/proyectos/): productos propios y trabajo con clientes.
+- [Nosotros](https://akorda.es/nosotros/): principios, compromisos y equipo.
+- [Contacto](https://akorda.es/contacto/): cuéntanos tu problema.
