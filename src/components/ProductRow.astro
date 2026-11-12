@@ -1,0 +1,253 @@
+---
+export type Product = {
+  id: string;
+  name: string;
+  tag: string;
+  tagline: string;
+  desc: string;
+  points: string[];
+  status: string;
+  href: string;
+  domain: string;
+  icon: string;
+  img: string;
+  /** 'browser': captura de escritorio en marco de navegador; 'phone': captura móvil */
+  kind: 'browser' | 'phone';
+  /** rgb sin alfa, para el halo y los detalles del producto */
+  glow: string;
+  badge: { k: string; v: string };
+  /** encuadre de la captura dentro del marco */
+  fit?: string;
+  /** captura móvil opcional que flota sobre la ventana de escritorio */
+  phone?: string;
+};
+
+interface Props {
+  p: Product;
+  /** pone la captura a la izquierda en escritorio */
+  flip?: boolean;
+}
+
+const { p, flip = false } = Astro.props;
+---
+
+<!-- Fila de producto: texto a un lado y captura al otro; en móvil, la captura va primero -->
+<article id={p.id} class="grid scroll-mt-28 items-center gap-10 lg:grid-cols-12 lg:gap-16" style={`--p: ${p.glow}`}>
+  <div class={`order-2 lg:col-span-5 ${flip ? 'lg:order-2' : 'lg:order-1'}`} data-reveal>
+    <div class="flex items-center gap-4">
+      <img src={p.icon} alt={`Icono de ${p.name}`} width="64" height="64" class="app-icon h-14 w-14 md:h-16 md:w-16" />
+      <div>
+        <span class="block text-xs font-semibold uppercase tracking-wider text-accent">{p.tag}</span>
+        <span class="mt-1.5 inline-flex items-center gap-2 text-sm font-medium text-ink-soft">
+          <span class="relative flex h-2 w-2">
+            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-60"></span>
+            <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+          </span>
+          {p.status}
+        </span>
+      </div>
+    </div>
+    <h3 class="font-display mt-6 text-4xl font-semibold tracking-tight text-ink md:text-6xl">{p.name}</h3>
+    <p class="font-display mt-3 text-xl font-medium leading-snug text-ink md:text-2xl">
+      <span class="product-mark">{p.tagline}</span>
+    </p>
+    <p class="mt-5 leading-relaxed text-ink-soft">{p.desc}</p>
+    <ul class="mt-6 space-y-3">
+      {p.points.map((pt) => (
+        <li class="flex gap-3 text-[15px] leading-snug text-ink">
+          <span aria-hidden="true" class="product-dot mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full"></span>
+          {pt}
+        </li>
+      ))}
+    </ul>
+    <a
+      href={p.href}
+      target="_blank"
+      rel="noopener"
+      data-magnetic
+      class="group mt-8 inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-paper transition-[filter] hover:brightness-125"
+    >
+      Visitar {p.domain}
+      <span aria-hidden="true" class="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5">↗</span>
+    </a>
+  </div>
+
+  <div class={`order-1 lg:col-span-7 ${flip ? 'lg:order-1' : 'lg:order-2'} ${p.phone ? 'mb-8 lg:mb-0' : ''}`} data-reveal style="--reveal-delay: 120ms">
+    <div class="relative">
+      <div aria-hidden="true" class="product-glow"></div>
+      {p.kind === 'browser' ? (
+        <a href={p.href} target="_blank" rel="noopener" data-tilt class="browser relative block" aria-label={`Abrir ${p.name}`}>
+          <div class="browser-bar">
+            <span class="flex gap-1.5" aria-hidden="true">
+              <i class="h-2.5 w-2.5 rounded-full bg-[#ff5f57]"></i>
+              <i class="h-2.5 w-2.5 rounded-full bg-[#febc2e]"></i>
+              <i class="h-2.5 w-2.5 rounded-full bg-[#28c840]"></i>
+            </span>
+            <span class="browser-url">
+              <svg aria-hidden="true" viewBox="0 0 16 16" class="h-3 w-3"><path fill="currentColor" d="M8 1a3.5 3.5 0 0 0-3.5 3.5V6H4a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-.5V4.5A3.5 3.5 0 0 0 8 1Zm2 5H6V4.5a2 2 0 1 1 4 0V6Z" /></svg>
+              {p.domain}
+            </span>
+            <span class="w-10" aria-hidden="true"></span>
+          </div>
+          <img
+            src={p.img}
+            alt={`Captura de ${p.name}`}
+            loading="lazy"
+            decoding="async"
+            width="1600"
+            height="1000"
+            class={`aspect-[16/10] w-full object-cover ${p.fit ?? 'object-top'}`}
+          />
+        </a>
+      ) : (
+        <a href={p.href} target="_blank" rel="noopener" class="phone-stage relative block overflow-hidden rounded-[1.75rem]" aria-label={`Abrir ${p.name}`}>
+          <div aria-hidden="true" class="phone-dots absolute inset-0"></div>
+          <div class="phone relative mx-auto mt-10 w-[min(62%,290px)] md:mt-12">
+            <img src={p.img} alt={`Captura de ${p.name} en el móvil`} loading="lazy" decoding="async" width="780" height="1688" class="block w-full" />
+          </div>
+        </a>
+      )}
+      {p.phone && (
+        <div
+          class={`float-y-late pointer-events-none absolute -bottom-[14%] w-[27%] max-w-[210px] ${flip ? '-left-[3%]' : '-right-[3%]'}`}
+          aria-hidden="true"
+        >
+          <div class="phone-float">
+            <img src={p.phone} alt="" loading="lazy" decoding="async" width="603" height="1225" class="block w-full" />
+          </div>
+        </div>
+      )}
+      <div
+        class={`glass float-y pointer-events-none absolute -bottom-6 hidden rounded-2xl px-5 py-3.5 sm:block ${flip ? '-right-4 lg:-right-6' : '-left-4 lg:-left-6'}`}
+      >
+        <p class="text-xs font-medium text-ink-faint">{p.badge.k}</p>
+        <p class="font-display mt-0.5 text-lg font-semibold tracking-tight text-ink">{p.badge.v}</p>
+      </div>
+    </div>
+  </div>
+</article>
+
+<style>
+  .product-glow {
+    position: absolute;
+    inset: -8% -6%;
+    border-radius: 3rem;
+    background: radial-gradient(closest-side, rgb(var(--p) / 0.38), transparent 72%);
+    filter: blur(40px);
+    pointer-events: none;
+  }
+
+  :global([data-theme='dark']) .product-glow {
+    background: radial-gradient(closest-side, rgb(var(--p) / 0.28), transparent 72%);
+  }
+
+  .product-dot {
+    background: rgb(var(--p));
+  }
+
+  .product-mark {
+    background-image: linear-gradient(transparent 62%, rgb(var(--p) / 0.28) 62%);
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  .browser {
+    overflow: hidden;
+    border-radius: 0.9rem;
+    border: 1px solid var(--color-line);
+    background: var(--color-paper);
+    box-shadow:
+      0 1px 0 rgb(255 255 255 / 0.5) inset,
+      0 40px 80px -40px rgb(12 21 38 / 0.45),
+      0 18px 36px -24px rgb(12 21 38 / 0.25);
+  }
+
+  :global([data-theme='dark']) .browser {
+    box-shadow: 0 40px 80px -36px rgb(0 0 0 / 0.9);
+  }
+
+  .browser-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.6rem 0.9rem;
+    border-bottom: 1px solid var(--color-line);
+    background: var(--color-paper-deep);
+  }
+
+  .browser-url {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-width: 0;
+    max-width: 60%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border-radius: 9999px;
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+    padding: 0.2rem 0.85rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-ink-soft);
+  }
+
+  .browser img,
+  .phone {
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .browser:hover img {
+    transform: scale(1.015);
+  }
+
+  .phone-stage:hover .phone {
+    transform: translateY(-8px);
+  }
+
+  /* Escenario para capturas de móvil */
+  .phone-stage {
+    height: clamp(380px, 46vw, 500px);
+    background:
+      radial-gradient(70% 80% at 50% 110%, rgb(var(--p) / 0.6), transparent 70%),
+      linear-gradient(160deg, #2a2160, #15122c);
+    box-shadow: 0 40px 80px -40px rgb(12 21 38 / 0.5);
+  }
+
+  .phone-dots {
+    background-image: radial-gradient(circle, rgb(255 255 255 / 0.12) 1px, transparent 1.4px);
+    background-size: 20px 20px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 30%, black, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 30%, black, transparent 80%);
+  }
+
+  .phone {
+    border: 9px solid #0f0d1c;
+    border-bottom: 0;
+    border-radius: 2.4rem 2.4rem 0 0;
+    overflow: hidden;
+    background: #0f0d1c;
+    box-shadow: 0 -10px 60px rgb(var(--p) / 0.5);
+  }
+
+  /* Móvil flotante sobre la ventana de escritorio */
+  .phone-float {
+    border: 5px solid #0f0f10;
+    border-radius: 1.6rem;
+    overflow: hidden;
+    background: #0f0f10;
+    box-shadow:
+      0 0 0 1px rgb(255 255 255 / 0.08),
+      0 30px 60px -20px rgb(12 21 38 / 0.55),
+      0 0 50px -10px rgb(var(--p) / 0.45);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .browser img,
+    .phone {
+      transition: none;
+    }
+  }
+</style>
