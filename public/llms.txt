@@ -32,6 +32,20 @@ pagas menos. Si cuesta más, lo hablamos antes. Sin sorpresas al final.
 Honestidad (hacerlo bien aunque sea incómodo decirlo), utilidad, simplicidad,
 responsabilidad y cooperación (remar como asociados, no como proveedor externo).
 
+## Proyectos
+
+Productos propios:
+
+- **Kaselles** (https://kaselles.com): generador de horarios para centros educativos con agente de IA y motor de restricciones. Escritorio (Windows, macOS, Linux).
+- **Taket** (https://taket.app): control de acceso y aforo por QR para eventos, con escaneo desde cualquier móvil y modo sin conexión.
+- **Dragonex** (https://dragones.kukapu.dev): partidas de D&D 5e dirigidas por IA; el modelo narra y un motor aplica las reglas.
+- **Kordia** (https://kordia.es): planificación de horas y capacidad de equipos entre proyectos, con API y servidor MCP.
+- **Cherry**: app de citas móvil open source y self-hosteable, sin muros de pago (en construcción).
+- **AudiblePort** (https://audibleport.com): convierte tu biblioteca de Audible a MP3 o M4B, en local.
+- **TicketSplitter** (https://ticketsplitter.app): divide la cuenta del restaurante a partir de una foto del ticket, en tiempo real.
+
+Con clientes (en desarrollo): Mercury Brokers (backoffice de seguros de transporte), CodiSL (gestión de obras), AquaSalud (mini-ERP a medida) y una plataforma de control de accesos para eventos.
+
 ## Datos
 
 - Web: https://akorda.es/
