@@ -61,4 +61,4 @@ Con clientes (en desarrollo): Mercury Brokers (backoffice de seguros de transpor
 - [Servicios](https://akorda.es/servicios/): las dos formas de ayudar, en detalle.
 - [Proyectos](https://akorda.es/proyectos/): productos propios y trabajo con clientes.
 - [Nosotros](https://akorda.es/nosotros/): principios, compromisos y equipo.
-- [Contacto](https://akorda.es/contacto/): cuéntanos tu problema.
+- [Contacto](https://akorda.es/contacto/): cuéntanos tu problema o tu idea.

@@ -2,15 +2,6 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CTA from '../components/CTA.astro';
 
-const pains = [
-  '«Lo llevamos todo con un Excel»',
-  '«Siempre lo hace la misma persona»',
-  '«Copiamos datos de un programa a otro»',
-  '«Tardamos tanto en presupuestar que perdemos encargos»',
-  '«El programa que usamos no permite hacer esto»',
-  '«Esto debería hacerse con un botón»',
-];
-
 const manifesto: { t: string; hl?: boolean }[] = [
   { t: 'Creemos' },
   { t: 'que' },
@@ -97,18 +88,16 @@ const principles = [
   },
 ];
 
-const services = [
+const helpWays = [
   {
     n: '01',
-    title: 'Mejora cómo trabajas hoy',
-    body: 'Miramos cómo trabajas y quitamos fricción: menos copiar datos, menos Excel frágil, menos depender de una sola persona. Con automatizaciones o una herramienta sencilla a tu medida. Empezamos por lo pequeño que más ayuda.',
-    href: '/servicios',
+    title: 'Mejorar cómo trabajas hoy',
+    body: 'Quitamos fricción a lo que ya haces, empezando por lo pequeño que más ayuda.',
   },
   {
     n: '02',
-    title: 'Crea algo nuevo',
-    body: 'Si tienes una idea, la convertimos en un producto sencillo que la gente entienda y use. Sin complejidad para una escala que aún no existe. Empieza pequeño y crece solo si funciona.',
-    href: '/servicios',
+    title: 'Construir algo nuevo contigo',
+    body: 'Si tienes una idea, nos sumamos como socio tecnológico y la llevamos juntos hasta donde llegue.',
   },
 ];
 
@@ -192,16 +181,9 @@ const why = [
       <div data-hero-fade>
         <div class="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
           <div>
-            <p
-              class="hero-enter inline-flex items-center gap-2 rounded-full border border-line bg-paper/80 px-4 py-1.5 text-sm font-medium text-ink-soft backdrop-blur"
-              style="--enter-delay: 0ms"
-            >
-              <span class="h-2 w-2 rounded-full bg-accent"></span>
-              Estudio de software · Valencia
-            </p>
             <h1
-              class="hero-enter font-display mt-6 text-5xl font-semibold leading-[1.02] tracking-tight text-ink md:text-7xl"
-              style="--enter-delay: 90ms"
+              class="hero-enter font-display text-5xl font-semibold leading-[1.02] tracking-tight text-ink md:text-7xl"
+              style="--enter-delay: 0ms"
             >
               El software debería <span class="italic text-accent">quitarte trabajo</span>, no dártelo.
             </h1>
@@ -209,9 +191,9 @@ const why = [
               class="hero-enter mt-6 max-w-xl text-lg leading-relaxed text-ink-soft md:text-xl"
               style="--enter-delay: 180ms"
             >
-              Somos akorda. Construimos software a medida y automatizaciones para
-              resolver problemas reales de tu empresa. Trabajamos a tu lado, te
-              enseñamos avances desde el principio y nunca te venderemos más de lo que necesitas.
+              Somos akorda, dos ingenieros de Valencia. Te ayudamos a mejorar cómo
+              trabajas hoy o a construir contigo algo nuevo. Trabajamos a tu lado,
+              enseñándote avances desde el principio y sin venderte más de lo que necesitas.
             </p>
             <div class="hero-enter mt-9 flex flex-wrap items-center gap-3" style="--enter-delay: 270ms">
               <a
@@ -219,7 +201,7 @@ const why = [
                 data-magnetic
                 class="rounded-full bg-ink px-6 py-3 font-medium text-paper transition-all hover:bg-accent active:scale-[0.98]"
               >
-                Cuéntanos tu problema
+                Cuéntanos qué necesitas
               </a>
               <a
                 href="#proceso"
@@ -239,27 +221,31 @@ const why = [
             </ul>
           </div>
 
-          <!-- Viñeta flotante: el antes y el después -->
-          <div class="hero-enter hidden lg:block" style="--enter-delay: 300ms">
-            <div class="float-y glass max-w-sm rounded-2xl p-6" data-depth="34">
-              <p class="text-xs font-semibold uppercase tracking-wider text-ink-faint">Tu proceso, hoy</p>
-              <ul class="mt-3 space-y-2.5 text-[15px] text-ink-soft">
-                <li class="flex gap-2.5"><span aria-hidden="true" class="text-ink-faint">✕</span> Excel + copiar y pegar entre programas</li>
-                <li class="flex gap-2.5"><span aria-hidden="true" class="text-ink-faint">✕</span> Presupuestos que tardan días</li>
-                <li class="flex gap-2.5"><span aria-hidden="true" class="text-ink-faint">✕</span> Solo una persona sabe cómo se hace</li>
+          <!-- Viñeta flotante: cómo podemos ayudarte y qué nos mueve -->
+          <div class="hero-enter" style="--enter-delay: 300ms">
+            <div class="float-y glass rounded-2xl p-6 lg:max-w-sm" data-depth="34">
+              <p class="text-xs font-semibold uppercase tracking-wider text-ink-faint">Dos formas de ayudarte</p>
+              <ul class="mt-4 space-y-4">
+                {helpWays.map((h) => (
+                  <li>
+                    <a href="/servicios" class="group block">
+                      <span class="font-display text-xs font-semibold tracking-widest text-accent">{h.n}</span>
+                      <span class="font-display mt-1 block text-lg font-semibold leading-snug tracking-tight text-ink transition-colors group-hover:text-accent">{h.title}</span>
+                      <span class="mt-1 block text-sm leading-relaxed text-ink-soft">{h.body}</span>
+                    </a>
+                  </li>
+                ))}
               </ul>
-              <div class="my-5 flex items-center gap-3 text-xs font-semibold uppercase tracking-wider text-accent">
-                <span class="h-px flex-1 bg-line"></span>
-                lo convertimos en
-                <span class="h-px flex-1 bg-line"></span>
-              </div>
-              <p class="text-xs font-semibold uppercase tracking-wider text-ink-faint">Con akorda</p>
-              <p class="font-display mt-2 text-2xl font-semibold tracking-tight text-ink">
-                Entendemos tu problema <span class="italic text-accent">y lo simplificamos.</span>
-              </p>
-              <div class="mt-4 rounded-xl border border-line bg-paper-deep p-4 text-sm leading-relaxed text-ink-soft">
-                Empiezas con algo pequeño y útil. Mejora con tu uso, sin ataduras.
-              </div>
+              <a href="/servicios" class="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-accent underline-offset-4 hover:underline">
+                Ver servicios en detalle <span aria-hidden="true">→</span>
+              </a>
+              <div class="my-5 h-px bg-line"></div>
+              <p class="text-xs font-semibold uppercase tracking-wider text-ink-faint">Lo que no negociamos</p>
+              <ul class="mt-3 flex flex-wrap gap-1.5">
+                {principles.map((p) => (
+                  <li class="rounded-full border border-line bg-paper/70 px-2.5 py-1 text-xs font-medium text-ink-soft">{p.title}</li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
@@ -272,18 +258,6 @@ const why = [
     </div>
   </section>
 
-  <!-- ============ MARQUEE DE DOLORES ============ -->
-  <div class="marquee overflow-hidden border-y border-line bg-paper-deep py-4" aria-label="Frases que escuchamos a menudo">
-    <div class="marquee-track flex w-max items-center gap-10 pr-10" style="--marquee-duration: 45s">
-      {[...pains, ...pains].map((pain) => (
-        <span class="flex items-center gap-10 whitespace-nowrap text-[15px] font-medium text-ink-soft">
-          {pain}
-          <span aria-hidden="true" class="text-accent">·</span>
-        </span>
-      ))}
-    </div>
-  </div>
-
   <!-- ============ MANIFIESTO ============ -->
   <section id="manifiesto" class="relative scroll-mt-24 overflow-hidden border-b border-line bg-paper-deep">
     <div aria-hidden="true" class="absolute inset-0" data-parallax="0.08">
@@ -291,7 +265,7 @@ const why = [
       <span class="orb bottom-[-160px] right-[-120px] h-[440px] w-[440px]" style="background: radial-gradient(closest-side, var(--aur-3), transparent 70%);"></span>
     </div>
     <div class="relative mx-auto max-w-4xl px-5 py-20 md:px-8 md:py-32">
-      <p class="eyebrow" data-reveal>Cómo vemos el software</p>
+      <p class="eyebrow" data-reveal>Por qué existimos</p>
       <p class="manifesto font-display mt-8 text-3xl font-medium leading-[1.25] tracking-tight text-ink md:text-[2.9rem] md:leading-[1.22]" data-manifesto>
         {manifesto.map((w, i) => (
           <>{i > 0 && ' '}<span class:list={['w', w.hl && 'hl']}>{w.t}</span></>
@@ -313,7 +287,7 @@ const why = [
     </div>
     <div class="relative mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-32">
       <div class="max-w-2xl" data-reveal>
-        <p class="eyebrow">Filosofía</p>
+        <p class="eyebrow">Cómo lo hacemos</p>
         <h2 class="font-display mt-5 text-3xl font-semibold tracking-tight text-ink md:text-5xl">
           Cinco principios que se notan en el resultado.
         </h2>
@@ -357,45 +331,6 @@ const why = [
     </div>
   </section>
 
-  <!-- ============ SERVICIOS (resumen) ============ -->
-  <section class="hairline-top relative overflow-hidden">
-    <div aria-hidden="true" class="absolute inset-0" data-parallax="0.07">
-      <span class="orb right-[-160px] top-[-120px] h-[420px] w-[420px]" style="background: radial-gradient(closest-side, var(--aur-2), transparent 70%);"></span>
-    </div>
-    <div class="relative mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-32">
-      <div class="flex flex-wrap items-end justify-between gap-6" data-reveal>
-        <div class="max-w-2xl">
-          <p class="eyebrow">Servicios</p>
-          <h2 class="font-display mt-5 text-3xl font-semibold tracking-tight text-ink md:text-5xl">
-            Dos formas de ayudarte.
-          </h2>
-          <p class="mt-5 max-w-xl text-lg leading-relaxed text-ink-soft">
-            Sin tecnologías de moda. Elegimos la herramienta según tu problema, no al revés.
-          </p>
-        </div>
-        <a href="/servicios" class="rounded-full border border-line bg-paper px-5 py-2.5 text-[15px] font-medium text-ink transition-colors hover:border-ink">
-          Ver servicios en detalle
-        </a>
-      </div>
-
-      <div class="mt-12 border-t border-line md:mt-16" data-reveal>
-        {services.map((s) => (
-          <a
-            href={s.href}
-            class="group grid gap-2 border-b border-line py-8 transition-colors hover:bg-paper-deep/60 md:grid-cols-[72px_1fr_1.4fr_40px] md:items-baseline md:gap-6 md:py-10"
-          >
-            <span class="font-display text-sm font-semibold tracking-widest text-accent">{s.n}</span>
-            <h3 class="font-display text-2xl font-semibold tracking-tight text-ink transition-transform duration-300 group-hover:translate-x-1 md:text-3xl">
-              {s.title}
-            </h3>
-            <p class="max-w-xl leading-relaxed text-ink-soft">{s.body}</p>
-            <span aria-hidden="true" class="hidden text-2xl text-accent transition-transform duration-300 group-hover:translate-x-1 md:block">→</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
   <!-- ============ CÓMO TRABAJAMOS ============ -->
   <section id="proceso" class="relative scroll-mt-24 overflow-hidden border-y border-line bg-paper-deep">
     <div aria-hidden="true" class="absolute inset-0" data-parallax="0.06">
@@ -403,7 +338,7 @@ const why = [
     </div>
     <div class="relative mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-32">
       <div class="max-w-2xl" data-reveal>
-        <p class="eyebrow">Cómo trabajamos</p>
+        <p class="eyebrow">En qué se traduce</p>
         <h2 class="font-display mt-5 text-3xl font-semibold tracking-tight text-ink md:text-5xl">
           Verás tu proyecto avanzar desde el principio.
         </h2>
@@ -442,9 +377,9 @@ const why = [
         </p>
         <figure class="mt-8 rounded-2xl bg-band p-7 text-band-fg">
           <blockquote class="font-display text-xl font-medium italic leading-relaxed">
-            «Esto es lo que estaba buscando. No sabía que se podía trabajar así.»
+            «Si en algún momento no sientes que estamos en el mismo equipo, es que algo estamos haciendo mal.»
           </blockquote>
-          <figcaption class="mt-4 text-sm text-band-fg/60">Así queremos que te sientas después de hablar con nosotros.</figcaption>
+          <figcaption class="mt-4 text-sm text-band-fg/60">Es lo que nos exigimos a nosotros mismos.</figcaption>
         </figure>
       </div>
       <ul class="divide-y divide-line border-y border-line">
@@ -473,8 +408,8 @@ const why = [
           Dos personas. Hablas con quien construye.
         </h2>
         <p class="mt-1 max-w-xl leading-relaxed text-ink-soft">
-          Somos Albert y Óscar, socios fundadores en Valencia. Ser pequeños es deliberado:
-          sin comerciales ni intermediarios.
+          Somos Albert y Óscar, socios fundadores en Valencia. Preferimos seguir siendo pequeños:
+          quien te escucha es quien lo construye, y así nada se pierde por el camino.
         </p>
       </div>
       <a href="/nosotros" class="shrink-0 rounded-full border border-line bg-paper px-5 py-2.5 text-[15px] font-medium text-ink transition-colors hover:border-ink">
