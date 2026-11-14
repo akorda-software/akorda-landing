@@ -42,6 +42,7 @@ Productos propios:
 - **Kaselles** (https://kaselles.com): generador de horarios para centros educativos con agente de IA y motor de optimización. Escritorio (Windows, macOS, Linux).
 - **Taket** (https://taket.app): control de acceso y aforo por QR para eventos, con escaneo desde cualquier móvil y modo sin conexión.
 - **Cherry** (https://cherry.org.es): la app para conocer gente que es de todos; open source, sin muros de pago (en preparación).
+- **Amigo invisible** (https://amigoinvisible.akorda.es): sorteo del amigo invisible online y gratis, con exclusiones y chats anónimos con quien regalas y quien te regala.
 - **Dragonex** (https://dragones.kukapu.dev): partidas de D&D 5e dirigidas por IA; la IA narra y un motor aplica las reglas.
 
 Con clientes (en desarrollo): Mercury Brokers (backoffice de seguros de transporte, en pruebas), CodiSL (gestión de obras) y AquaSalud (mini-ERP a medida).

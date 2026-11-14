@@ -111,6 +111,28 @@ const products: Product[] = [
   },
 ];
 
+const amigoinvisible: Product = {
+  id: 'amigoinvisible',
+  name: 'Amigo invisible',
+  tag: 'Web · Gratis',
+  tagline: 'El sorteo de siempre, con chat secreto.',
+  desc: 'Organiza el amigo invisible online: creas el grupo, invitas por email o con un enlace y sorteas. Después, cada uno tiene dos chats anónimos, con la persona a la que regala y con quien le regala, para acertar con el regalo sin descubrirse.',
+  points: [
+    'Bloquea parejas o repetir el regalo del año pasado; el sorteo lo respeta',
+    'Si alguien se va tras el sorteo, la cadena se repara sin volver a sortear',
+    'Modalidad clásica o a ciegas, por colores',
+  ],
+  status: 'En producción',
+  href: 'https://amigoinvisible.akorda.es',
+  domain: 'amigoinvisible.akorda.es',
+  icon: icon('amigoinvisible'),
+  img: '/images/proyectos/amigoinvisible.webp',
+  phone: '/images/proyectos/amigoinvisible-movil.webp',
+  kind: 'browser',
+  glow: '255 210 63',
+  badge: { k: 'Precio', v: 'Gratis y sin anuncios' },
+};
+
 const dragonex: Product = {
   id: 'dragonex',
   name: 'Dragonex',
@@ -132,11 +154,11 @@ const dragonex: Product = {
   badge: { k: 'Pruebas automáticas', v: '+3.300 en cada despliegue' },
 };
 
-const all = [...products, { id: 'cherry', name: 'Cherry', icon: icon('cherry') }, dragonex];
+const all = [...products, { id: 'cherry', name: 'Cherry', icon: icon('cherry') }, amigoinvisible, dragonex];
 
 const stats = [
-  { n: '7', label: 'productos propios' },
-  { n: '6', label: 'ya publicados y en uso' },
+  { n: '8', label: 'productos propios' },
+  { n: '7', label: 'ya publicados y en uso' },
   { n: '3', label: 'proyectos a medida en marcha' },
   { n: '3', label: 'plataformas: web, escritorio y móvil' },
 ];
@@ -171,7 +193,7 @@ const clients = [
 
 <BaseLayout
   title="Proyectos"
-  description="Productos propios de akorda: AudiblePort, Kordia, TicketSplitter, Kaselles, Taket, Cherry y Dragonex. Y software a medida en marcha con clientes como Mercury Brokers y CodiSL."
+  description="Productos propios de akorda: AudiblePort, Kordia, TicketSplitter, Kaselles, Taket, Cherry, Amigo invisible y Dragonex. Y software a medida en marcha con clientes como Mercury Brokers y CodiSL."
 >
   <!-- ============ HERO ============ -->
   <section id="hero" class="relative overflow-hidden pt-16 md:pt-[72px]">
@@ -321,9 +343,14 @@ const clients = [
       </article>
     </div>
 
+    <!-- ============ AMIGO INVISIBLE ============ -->
+    <div class="mx-auto max-w-6xl px-5 pt-24 md:px-8 md:pt-40">
+      <ProductRow p={amigoinvisible} flip={products.length % 2 === 1} />
+    </div>
+
     <!-- ============ DRAGONEX ============ -->
     <div class="mx-auto max-w-6xl px-5 pb-24 pt-24 md:px-8 md:pb-36 md:pt-40">
-      <ProductRow p={dragonex} flip={products.length % 2 === 1} />
+      <ProductRow p={dragonex} flip={products.length % 2 === 0} />
     </div>
   </section>
 
